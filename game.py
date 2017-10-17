@@ -53,18 +53,6 @@ def is_valid_exit(exits, chosen_exit):
 
     return chosen_exit in exits
 
-def is_item_present(item_id):
-    #This function checks whether an item is present in the current room.
-
-    global current_room
-
-    item_present = False
-    for item in current_room["items"]:
-        if item["id"] == item_id:
-            item_present = True
-
-    return item_present
-
 def execute_go(direction):
     #This function, given the direction updates the current room
     #to reflect the movement of the player if the direction is a valid exit.
@@ -79,15 +67,23 @@ def execute_go(direction):
 def execute_inspect(article):
     #This function allows a part of the environment to be examined
     
+    global inventory
     global current_room
 
-    if is_item_present(article) == True:
-        for item in current_room["items"]:
-            if item["id"] == article:
-                print(item["description"])
-    elif is_valid_exit(current_room["exits"], article):
+    article_inspected = False
+    for item in current_room["items"]:
+       if item["id"] == article:
+           	print(item["description"])
+           	article_inspected = True
+    for item in inventory:
+    	if item["id"] == article:
+    		print(item["description"])
+    		article_inspected = True
+    if is_valid_exit(current_room["exits"], article):
         current_room = rooms[current_room["exits"][article]]
-    else:
+        article_inspected = True
+    
+    if article_inspected == False:
         print("You cannot inspect that.")
         
 def execute_take(item_id):
@@ -140,35 +136,38 @@ def execute_command(command):
     #This function takes a command (a list of words as returned by
     #normalise_input) and, depending on the type of action performs it.
 
-    if 0 == len(command):
-        return
+	if 0 == len(command):
+		return
 
-    if command[0] == "go":
-        if len(command) > 1:
-            execute_go(command[1])
-        else:
-            print("Go where?")
+	if command[0] == "go":
+		if len(command) > 1:
+			execute_go(command[1])
+		else:
+			print("Go where?")
 
-    elif command[0] == "take":
-        if len(command) > 1:
-            execute_take(command[1])
-        else:
-            print("Take what?")
+	elif command[0] == "take":
+		if len(command) > 1:
+			execute_take(command[1])
+		else:
+			print("Take what?")
 
-    elif command[0] == "drop":
-        if len(command) > 1:
-            execute_drop(command[1])
-        else:
-            print("Drop what?")
+	elif command[0] == "drop":
+		if len(command) > 1:
+			execute_drop(command[1])
+		else:
+			print("Drop what?")
 
-    elif command[0] == "inspect" or command[0] == "examine":
-        if len(command) > 1:
-            execute_inspect(command[1])
-        else:
-            print("Inspect what?")
+	elif command[0] == "inspect" or command[0] == "examine":
+		if len(command) > 1:
+			execute_inspect(command[1])
+		else:
+			print("Inspect what?")
 
-    elif room_specific_command(command[0], command[1]) == False:
-        print("This makes no sense.")
+	elif len(command) > 1:
+		if room_specific_command(command[0], command[1]) == False:
+			print("This makes no sense.")
+	else:
+		print("This makes no sense.")
 
 def user_input():
     #This function normalises and returns the user input.
