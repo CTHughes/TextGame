@@ -1,5 +1,5 @@
 item_greenkey = {
-    "id": "green key",
+    "id": "green",
     
     "name": "a green key",
 

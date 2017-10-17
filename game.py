@@ -97,10 +97,14 @@ def execute_take(item_id):
     global inventory
     global current_room
 
-    if is_item_present(item_id) == True:
-        inventory.append(item)
-        current_room["items"].remove(item)
-    else:
+    item_taken = False
+    for item in current_room["items"]:
+        if item["id"] == item_id:
+                inventory.append(item)
+                current_room["items"].remove(item)
+                item_taken = True
+
+    if item_taken == False:
         print("You cannot take that.")
     
 
@@ -111,10 +115,14 @@ def execute_drop(item_id):
     global inventory
     global current_room
 
-    if is_item_present(item_id) == True:
-        current_room["items"].append(item)
-        inventory.remove(item)
-    else:
+    item_dropped = False
+    for item in inventory:
+        if item["id"] == item_id:
+            current_room["items"].append(item)
+            inventory.remove(item)
+            item_dropped = True
+
+    if item_dropped == False:
         print("You cannot drop that.")
 
 def room_specific_command(command, article):
@@ -124,7 +132,7 @@ def room_specific_command(command, article):
     if current_room == rooms["Chair"] and command == "pick" and article == "chair":
         print("When you pick up the chair a green key clatters to the floor.")
         current_room["items"].append(item_greenkey)
-    else
+    else:
         return False
     return True
 
