@@ -25,8 +25,7 @@ room_table = {
     "description":
     """Out of place in the dimly lit room, the hardwood
 table appears up-market and bespoke. On its surface
-are 4 coloured sheets of paper with writing on them.
-One is blue, one red, one yellow and one green.""",
+is a single sheet of paper.""",
 
     "exits": {"back": "Start"},
 
@@ -70,7 +69,9 @@ room_green_door = {
     you are well aware you wouldn't be able to break it down. Curiosity leaves you craving 
     to know what awaits you on the other side.
 
-    It appears the only way through is to use a key..."""
+    It appears the only way through is to use a key and undo a padlock...
+
+    The padlock appears to say 'Kirill is...'"""
 
     "exits": {"back": "Start"},
 
