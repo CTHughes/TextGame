@@ -94,4 +94,5 @@ rooms = {
     "Chair": room_chair,
     "Gold Door": room_gold_door
     "Green Door": room_green_door
+    "Clock": room_clock
 }
