@@ -13,13 +13,13 @@ def list_of_items(items):
     names = [li["name"] for li in items]
     return ", ".join(names)
 
-#def print_room_items(room):
+def print_room_items(room):
     #This function takes a room as an input and nicely displays a list of items
     #found in this room.
     
-    #if room["items"]:
-        #print("There is " + list_of_items(room["items"]) + " here.")
-        #print()
+    if room["items"]:
+        print("There is " + list_of_items(room["items"]) + " here.")
+        print()
 
 def print_inventory_items(items):
     #This function takes a list of inventory items and displays it nicely, in a
@@ -40,7 +40,7 @@ def print_room(room):
     # Display room description
     print(room["description"])
     print()
-    #print_room_items(room)
+    print_room_items(room)
 
 def exit_leads_to(exits, direction):
     #This function takes a dictionary of exits and a direction and
@@ -117,6 +117,17 @@ def execute_drop(item_id):
     else:
         print("You cannot drop that.")
 
+def room_specific_command(command, article):
+
+    global current_room
+
+    if current_room == rooms["Chair"] and command == "pick" and article == "chair":
+        print("When you pick up the chair a green key clatters to the floor.")
+        current_room["items"].append(item_greenkey)
+    else
+        return False
+    return True
+
 def execute_command(command):
     #This function takes a command (a list of words as returned by
     #normalise_input) and, depending on the type of action performs it.
@@ -148,7 +159,7 @@ def execute_command(command):
         else:
             print("Inspect what?")
 
-    else:
+    elif room_specific_command(command[0], command[1]) == False:
         print("This makes no sense.")
 
 def user_input():

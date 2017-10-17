@@ -8,7 +8,7 @@ skip_words = ['a', 'about', 'all', 'an', 'another', 'any', 'around', 'at',
               'like', 'little', 'main', 'me', 'mine', 'more', 'my', 'now',
               'of', 'off', 'oh', 'on', 'please', 'small', 'some', 'soon',
               'that', 'the', 'then', 'this', 'those', 'through', 'till', 'to',
-              'towards', 'until', 'us', 'want', 'we', 'what', 'when', 'why',
+              'towards', 'until', 'us', 'up', 'want', 'we', 'what', 'when', 'why',
               'wish', 'with', 'would']
 
 

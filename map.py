@@ -12,9 +12,9 @@ room makes you shiver, the atmosphere not helped by the
 digital clock with a red display ominously ticking down
 on the wall. You need to escape. And fast.""",
 
-    "exits": {"table": "Table"},
+    "exits": {"table": "Table", "chair": "Chair"},
 
-    "items": [item_chair]
+    "items": []
 }
 
 room_table = {
@@ -31,7 +31,22 @@ One was blue, one red, one yellow and one green.""",
     "items": []
 }
 
+room_chair = {
+    "name": "the chair",
+
+    "description":
+    """The chair that you were seated on when you were awoke is a plastic folding
+chair. It looks so unbelievably uncomfortable that you find it hard to
+imagine you managed to sleep on it without having first been drugged. It
+looks light enough that it could easily be picked up if you should need to."""
+},
+
+    "exits": {"back": "Start"},
+
+    "items": []
+
 rooms = {
     "Start": room_start,
     "Table": room_table
+    "Chair": room_chair
 }
