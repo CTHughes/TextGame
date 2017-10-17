@@ -64,7 +64,7 @@ def execute_go(direction):
     else:
         print("You cannot go there.")
 
-def execute_inspect(article):
+def execute_inspect(article, extension = ""):
     #This function allows a part of the environment to be examined
     
     global inventory
@@ -79,8 +79,8 @@ def execute_inspect(article):
     	if item["id"] == article:
     		print(item["description"])
     		article_inspected = True
-    if is_valid_exit(current_room["exits"], article):
-        current_room = rooms[current_room["exits"][article]]
+    if is_valid_exit(current_room["exits"], article + extension):
+        current_room = rooms[current_room["exits"][article + extension]]
         article_inspected = True
     
     if article_inspected == False:
@@ -128,6 +128,9 @@ def room_specific_command(command, article):
     if current_room == rooms["Chair"] and command == "pick" and article == "chair":
         print("When you pick up the chair a green key clatters to the floor.")
         current_room["items"].append(item_greenkey)
+    elif current_room == rooms["Green Door"] and command == "use" and article == "green key":
+    	print("As you unlock the green door with the green key, a keypad opens.")
+    	current.room["exits"].append({"keypad": "Keypad"})
     else:
         return False
     return True
@@ -158,7 +161,9 @@ def execute_command(command):
 			print("Drop what?")
 
 	elif command[0] == "inspect" or command[0] == "examine":
-		if len(command) > 1:
+		if len(command) > 2:
+			execute_inspect(command[1], command[2])
+		elif len(command) > 1:
 			execute_inspect(command[1])
 		else:
 			print("Inspect what?")

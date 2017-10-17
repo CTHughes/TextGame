@@ -14,7 +14,7 @@ with its red lights gleaming at you worsening the atmosphere.
 
 You need to escape. Fast.""",
 
-    "exits": {"table": "Table", "chair": "Chair"},
+    "exits": {"table": "Table", "chair": "Chair", "clock" : "Clock", "greendoor": "Green Door"},
 
     "items": []
 }
@@ -54,7 +54,7 @@ room_gold_door = {
     it you cannot help but feel frustrated that it is not a fire exit, why can't you just leave
     already? 
 
-    It seems it requires a username and password to escape."""
+    It seems it requires a username and password to escape.""",
 
     "exits": {"back": "Start"},
 
@@ -62,16 +62,14 @@ room_gold_door = {
 }
 
 room_green_door = {
-    "name": "the green door"
+    "name": "the green door",
 
     "description":
     """The green door seems like it belongs in this dimly lit room, its wood seems aged, yet 
     you are well aware you wouldn't be able to break it down. Curiosity leaves you craving 
     to know what awaits you on the other side.
 
-    It appears the only way through is to use a key and undo a padlock...
-
-    The padlock appears to say 'Kirill is...'"""
+    It appears the only way through is to use a key.'""",
 
     "exits": {"back": "Start"},
 
@@ -79,13 +77,23 @@ room_green_door = {
 }
 
 room_clock = {
-    "name": "the clock"
+    "name": "the clock",
 
     "description":
     """The red display of this clock is very ominous. It's decreasing value seems to only
-    mean impending doom."""
+    mean impending doom.""",
 
-    "exits" {"back": "Start"}
+    "exits": {"back": "Start"},
+
+    "items": []
+}
+
+room_keypad = {
+    "name": "the keypad",
+
+    "description": "A display awaiting 4 characters input, and a flashing keyboard.",
+
+    "exits": {"back": "Start"},
 
     "items": []
 }
@@ -93,7 +101,8 @@ rooms = {
     "Start": room_start,
     "Table": room_table,
     "Chair": room_chair,
-    "Gold Door": room_gold_door
-    "Green Door": room_green_door
-    "Clock": room_clock
+    "Gold Door": room_gold_door,
+    "Green Door": room_green_door,
+    "Clock": room_clock,
+    "Keypad": room_keypad
 }
