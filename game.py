@@ -206,10 +206,12 @@ def print_slow(string):
 def main():
 
     print_slow("""As you groggily wake up and roll over, you find yourself groping
-at empty air as you tumble to the cold, hard floor. Looking up to see that you
-had fallen from a chair, in a cold, dim, wet and unfamiliar room.
+at empty air tumbling to the cold, hard floor. Looking up it is clear that you fell
+from a chair, in a cold, dim, wet and seemingly unfamiliar room.
 
-Why are you here? Your memory is hazy. In fact, you cannot even recall your
+Why are you here?
+
+Your memory is hazy. In fact, you cannot even recall your
 own name. It appears you have some form of amnesia.
 
 As you get to your feet, your attention is caught by the red glare of a digital
