@@ -71,17 +71,18 @@ def execute_inspect(article, extension = ""):
     global current_room
 
     article_inspected = False
-    for item in current_room["items"]:
-       if item["id"] == article:
-           	print(item["description"])
-           	article_inspected = True
-    for item in inventory:
-    	if item["id"] == article:
-    		print(item["description"])
-    		article_inspected = True
     if is_valid_exit(current_room["exits"], article + extension):
         current_room = rooms[current_room["exits"][article + extension]]
         article_inspected = True
+    else:
+        for item in current_room["items"]:
+            if item["id"] == article:
+                print(item["description"])
+                article_inspected = True
+        for item in inventory:
+            if item["id"] == article:
+                print(item["description"])
+                article_inspected = True
     
     if article_inspected == False:
         print("You cannot inspect that.")
@@ -121,17 +122,24 @@ def execute_drop(item_id):
     if item_dropped == False:
         print("You cannot drop that.")
 
-def room_specific_command(command, article):
-
+def room_specific_command(command, article, extension = ""):
+    #This function is for running the hard-coded room commands which produce a specific result
     global current_room
 
     if current_room == rooms["Chair"] and command == "pick" and article == "chair":
         print("When you pick up the chair a green key clatters to the floor.")
         current_room["items"].append(item_greenkey)
-    elif current_room == rooms["Green Door"] and command == "use" and article == "green key":
-    	print("As you unlock the green door with the green key, a keypad opens.")
-    	current.room["exits"].append({"keypad": "Keypad"})
-    else:
+    elif current_room == rooms["Green Door"] and command == "use" and article + extension == "greenkey":
+        inventory.remove(item_greenkey)
+        print("As you unlock the green door with the green key, a keypad opens.")
+        current_room = rooms["Keypad"]
+        rooms["Start"]["exits"]["greendoor"] = "Keypad"
+    elif current_room == rooms["Clock"] and command == "check" and article == "time":
+        minutes = time.clock() / 60
+        seconds = time.clock() % 60
+        if 30 - minutes >= 0:
+            print(str(int(30 - minutes)) + ":" + str(int(60 - seconds)) + " is what can be read on the clock.")
+    else:   
         return False
     return True
 
@@ -139,40 +147,46 @@ def execute_command(command):
     #This function takes a command (a list of words as returned by
     #normalise_input) and, depending on the type of action performs it.
 
-	if 0 == len(command):
-		return
+    command_executed = True
+    if 0 == len(command):
+        return
 
-	if command[0] == "go":
-		if len(command) > 1:
-			execute_go(command[1])
-		else:
-			print("Go where?")
+    if command[0] == "go":
+        if len(command) > 1:
+            execute_go(command[1])
+        else:
+            print("Go where?")
 
-	elif command[0] == "take":
-		if len(command) > 1:
-			execute_take(command[1])
-		else:
-			print("Take what?")
+    elif command[0] == "take":
+        if len(command) > 1:
+            execute_take(command[1])
+        else:
+            print("Take what?")
 
-	elif command[0] == "drop":
-		if len(command) > 1:
-			execute_drop(command[1])
-		else:
-			print("Drop what?")
+    elif command[0] == "drop":
+        if len(command) > 1:
+            execute_drop(command[1])
+        else:
+            print("Drop what?")
 
-	elif command[0] == "inspect" or command[0] == "examine":
-		if len(command) > 2:
-			execute_inspect(command[1], command[2])
-		elif len(command) > 1:
-			execute_inspect(command[1])
-		else:
-			print("Inspect what?")
+    elif command[0] == "inspect" or command[0] == "examine":
+        if len(command) > 2:
+            execute_inspect(command[1], command[2])
+        elif len(command) > 1:
+            execute_inspect(command[1])
+        else:
+            print("Inspect what?")
 
-	elif len(command) > 1:
-		if room_specific_command(command[0], command[1]) == False:
-			print("This makes no sense.")
-	else:
-		print("This makes no sense.")
+    elif len(command) > 2:
+        if room_specific_command(command[0], command[1], command[2]) == False:
+            command_executed = False
+    elif len(command) > 1:
+        if room_specific_command(command[0], command[1]) == False:
+            command_executed = False
+
+    if command_executed == False:
+        print("This makes no sense.")
+
 
 def user_input():
     #This function normalises and returns the user input.
@@ -208,6 +222,8 @@ def print_slow(string):
 # This is the entry point of our program
 
 def main():
+    #Starts the clock
+    time.clock()
 
     print_slow("""As you groggily wake up and roll over, you find yourself groping
 at empty air tumbling to the cold, hard floor. Looking up it is clear that you fell
@@ -230,7 +246,9 @@ room. It's time to take a look around.
     time.sleep(1)
 
     # Main game loop
-    while True:
+
+    #When 30 minutes has elapsed, the game ends
+    while time.clock() < 108000:
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_inventory_items(inventory)
@@ -240,7 +258,7 @@ room. It's time to take a look around.
 
         # Execute the player's command
         execute_command(command)
-
+    print("Game Over")
 # Are we being run as a script? If so, run main().
 # '__main__' is the name of the scope in which top-level code executes.
 # See https://docs.python.org/3.4/library/__main__.html for explanation
