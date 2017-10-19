@@ -122,11 +122,19 @@ def execute_drop(item_id):
     if item_dropped == False:
         print("You cannot drop that.")
 
-def room_specific_command(command, article, extension = ""):
+def specific_command(command, article, extension = ""):
     #This function is for running the hard-coded room commands which produce a specific result
     global current_room
 
-    if current_room == rooms["Chair"] and command == "pick" and article == "chair":
+    if command == "check" and article == "pocket":
+        print("When put your hand into your pocket you find a pair of glasses inside.")
+        inventory.append(item_glasses)
+    elif item_glasses in inventory and command == "wear" and article == "glasses":
+        print("You put on your glasses, everything becomes much clearer now.")
+        inventory.remove(item_glasses)
+        rooms["Table"]["description"] = """Out of place in the dimly lit room, the hardwood table appears up-market and 
+bespoke. On its surface is a single sheet of paper. There is also a post-it note with the numbers 3748."""
+    elif current_room == rooms["Chair"] and command == "pick" and article == "chair":
         print("When you pick up the chair a green key clatters to the floor.")
         current_room["items"].append(item_greenkey)
     elif current_room == rooms["Green Door"] and command == "use" and article + extension == "greenkey":
@@ -135,10 +143,13 @@ def room_specific_command(command, article, extension = ""):
         current_room = rooms["Keypad"]
         rooms["Start"]["exits"]["greendoor"] = "Keypad"
     elif current_room == rooms["Clock"] and command == "check" and article == "time":
+
         minutes = time.clock() / 60
         seconds = time.clock() % 60
         if 30 - minutes >= 0:
-            print(str(int(30 - minutes)) + ":" + str(int(60 - seconds)) + " is what can be read on the clock.")
+            minutes = int(30 - minutes)
+            seconds = int(60 - seconds)
+            print(("%02d" % (minutes,)) + ":" + ("%02d" % (seconds,)) + " is what can be read on the clock.")
     else:   
         return False
     return True
@@ -178,10 +189,10 @@ def execute_command(command):
             print("Inspect what?")
 
     elif len(command) > 2:
-        if room_specific_command(command[0], command[1], command[2]) == False:
+        if specific_command(command[0], command[1], command[2]) == False:
             command_executed = False
     elif len(command) > 1:
-        if room_specific_command(command[0], command[1]) == False:
+        if specific_command(command[0], command[1]) == False:
             command_executed = False
 
     if command_executed == False:
@@ -223,11 +234,12 @@ def print_slow(string):
 
 def main():
     #Starts the clock
+
     time.clock()
 
     print_slow("""As you groggily wake up and roll over, you find yourself groping
-at empty air tumbling to the cold, hard floor. Looking up it is clear that you fell
-from a chair, in a cold, dim, wet and seemingly unfamiliar room.
+at empty air tumbling to the cold, hard floor. Looking up it is clear that you
+fell from a chair, in a cold, dim, wet and seemingly unfamiliar room.
 
 Why are you here?
 
@@ -235,7 +247,7 @@ Your memory is hazy. In fact, you cannot even recall your
 own name. It appears you have some form of amnesia.
 
 As you get to your feet, your attention is caught by the red glare of a digital
-clock embedded into the wall. It reads 30:00.
+clock embedded into the wall. It reads 30:00
 
 29:59
 
@@ -243,6 +255,7 @@ It's counting down. You decide you don't want to be around when it
 reaches zero. Perhaps the answers to your questions lie somewhere in the
 room. It's time to take a look around.
 """)
+
     time.sleep(1)
 
     # Main game loop
