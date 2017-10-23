@@ -48,16 +48,19 @@ item_painting = {
 
 	"name": "a painting of a safe",
 
-	"description": """The ornate painting is of a large safe. Upon closer inspection you can see that three numbers have been assigned colours:
-1 is red, 6 is gold and 8 is green. It is an odd painting, I guess that's just modern art for you."""
+	"description": """The ornate painting is of a large safe. Upon closer inspection you can see
+that three numbers have been assigned colours: 1 is red, 6 is gold and 8 is green. It is an
+odd painting, I guess that's just modern art for you."""
 }
 item_note= {
 	"id": "note",
 
 	"name": "a red note",
 
-	"description": """A strange red note writes in cursive font, "you live but your reflection does not - it lacks a substance you have 
-in plenty - yet if the timer stops you may run out, and running itself will leave you short, prehaps you should give some to your reflection? """
+	"description": """A strange red note writes in cursive font, "you live but your
+reflection does not - it lacks a substance you have in plenty - yet if the timer
+stops you may run out, and running itself will leave you short, prehaps you should
+give some to your reflection? """
 
 }
 item_bottle= {
@@ -67,5 +70,13 @@ item_bottle= {
 
   "description": "A bottle, filled with water."
 
+}
+item_picture= {
+  "id": "picture",
+
+  "name": "A picture of a taxi"
+
+  "decription": """""It appears to be a picure of a taxi with a piano on top. Seems like
+  a very precarious position for a piano"""
 }
 
