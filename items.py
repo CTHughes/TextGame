@@ -43,3 +43,21 @@ item_glasses = {
 
 	"description": "A pair of bespoke spectacles that you assume belong to you."
 }
+item_painting = {
+	"id": "painting",
+
+	"name": "a painting of a safe",
+
+	"description": """As you approach the wall, you do a double-take - hung on the wall is an ornate painting of safe (yes, like the kind you keep valuables in). 
+It seems strange, but then you've never appreciated 'modern art'."""
+}
+item_red_note= {
+	"id": "note",
+
+	"name": "a red note",
+
+	"description": """A strage red note writes in cursive font, "you live but your reflection does not - it lacks a substance you have 
+in plenty - yet if the timer stops you may run out, and running itself will leave you short, prehaps you should give some to your reflection? """
+
+}
+
