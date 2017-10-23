@@ -48,8 +48,8 @@ item_painting = {
 
 	"name": "a painting of a safe",
 
-	"description": """As you approach the wall, you do a double-take - hung on the wall is an ornate painting of safe (yes, like the kind you keep valuables in). 
-It seems strange, but then you've never appreciated 'modern art'."""
+	"description": """The ornate painting is of a large safe. Upon closer inspection you can see that three numbers have been assigned colours:
+1 is red, 6 is gold and 8 is green. It is an odd painting, I guess that's just modern art for you."""
 }
 item_note= {
 	"id": "note",
