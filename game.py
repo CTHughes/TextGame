@@ -6,6 +6,8 @@ from items import *
 from gameparser import *
 import time
 
+glasses_taken = False
+
 def list_of_items(items):
     #This function takes a list of items (see items.py for the definition) and
     #returns a comma-separated list of item names (as a string).
@@ -69,6 +71,7 @@ def execute_inspect(article, extension = ""):
     
     global inventory
     global current_room
+    global glasses_taken
 
     article_inspected = False
     if is_valid_exit(current_room["exits"], article + extension):
@@ -83,8 +86,19 @@ def execute_inspect(article, extension = ""):
             if item["id"] == article:
                 print(item["description"])
                 article_inspected = True
-    
-    if article_inspected == False:
+
+    if glasses_taken == True and article == "pocket":
+        print("Your pockets are empty.")
+        article_inspected = True
+
+    if glasses_taken == False and article == "pocket":
+        print("You find a pair of glasses in your pocket.")
+        inventory.append(item_glasses)
+        article_inspected = True
+        glasses_taken = True
+
+
+    elif article_inspected == False:
         print("You cannot inspect that.")
         
 def execute_take(item_id):
@@ -101,6 +115,11 @@ def execute_take(item_id):
                 current_room["items"].remove(item)
                 item_taken = True
 
+    if item_id == "painting" and current_room == rooms["Second Room"]:
+        rooms["Second Room"]["description"] = """You are in a dark vast room, the high ceiling towers at a staggering height above you. Through the dingey light you
+can make out and piano in the corner, a safe revealed by taking down the painting and a new door across from you - it's
+gleaming red crimson clearly capturing your attention. Whoever owns this place really has a thing for coloured doors."""
+        rooms["Second Room"]["exits"].update({"safe" : "Safe"})
     if item_taken == False:
         print("You cannot take that.")
     
@@ -125,11 +144,8 @@ def execute_drop(item_id):
 def specific_command(command, article, extension = ""):
     #This function is for running the hard-coded room commands which produce a specific result
     global current_room
-
-    if command == "check" and article == "pocket":
-        print("When put your hand into your pocket you find a pair of glasses inside.")
-        inventory.append(item_glasses)
-    elif item_glasses in inventory and command == "wear" and article == "glasses":
+        
+    if item_glasses in inventory and command == "wear" and article == "glasses":
         print("You put on your glasses, everything becomes much clearer now.")
         inventory.remove(item_glasses)
         rooms["Table"]["description"] = """Out of place in the dimly lit room, the hardwood table appears up-market and 
@@ -156,8 +172,12 @@ bespoke. On its surface is a single sheet of paper. There is also a post-it note
             print(("%02d" % (minutes,)) + ":" + ("%02d" % (seconds,)) + " is what can be read on the clock.")
     
     elif current_room == rooms["Piano"] and (command == "push" or command == "move") and article == "piano":
-        print("The piano is pushed to one side and behind it you find a water bottle.")
-        current_room["items"].append(item_bottle)
+        if current_room["description"] != """A grand Piano off to one side where you pushed it. It doesn't seem to fit with the dark 
+room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""":
+            print("The piano is pushed to one side and behind it you find a water bottle.")
+            current_room["items"].append(item_bottle)
+            current_room["description"] = """A grand Piano off to one side where you pushed it. It doesn't seem to fit with the dark 
+room - how would anyone read sheet music in that light? Yet, it seems to draw you in."""
     elif current_room == rooms["Piano"] and command == "play" and article == "cab":
         print("The top of the piano mechanically opens to reveal a red note.")
         current.room["items"].append(item_note)
@@ -169,7 +189,13 @@ bespoke. On its surface is a single sheet of paper. There is also a post-it note
         inventory.remove(item_redkey)
         print("As you unlock the red door with the red key, a keypad opens.")
         current_room == rooms["Second Keypad"]
-        rooms["Second Room"]["exits"]["reddoor"] = "Second Keypad"       
+        rooms["Second Room"]["exits"]["reddoor"] = "Second Keypad"
+    elif current_room == rooms["Safe"] and (command == "enter" or command == "type") and article == "816":
+        if current_room["description"] != "The safe lies ajar and you can see inside.":
+            print("The safe unlocks when you enter in the correct combination.")
+            current_room["items"].append(item_bottle)
+            current_room["items"].append(item_picture)
+            current_room["description"] = "The safe lies ajar and you can see inside."
     else:   
         return False
     return True

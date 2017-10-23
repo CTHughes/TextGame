@@ -117,7 +117,7 @@ if you were taller, you would probably have to duck. A keypad sits next to door 
 room_piano = {
     "name": "the piano",
 
-    "description": """A grand Piano sits strangely in the corner of the room. It doesn't seem to fit with the dark 
+    "description": """A grand Piano is awkwardly pressed against the wall. It doesn't seem to fit with the dark 
 room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""",
 
     "exits": {"back": "Second Room"},
@@ -144,6 +144,15 @@ gleaming red crimson clearly capturing your attention. Whoever owns this place r
 
     "exits": {"greendoor": "Start", "reddoor": "Red Door", "piano": "Piano", "metalbox": "Metal Box"},
 
+    "items": [item_bottle, item_painting]
+}
+room_safe = {
+    "name": "the safe",
+
+    "description": "The safe is closed and has a keypad with the numbers one to nine.",
+
+    "exits": {"back": "Second Room"},
+
     "items": []
 }
 
@@ -159,6 +168,7 @@ rooms = {
     "Piano": room_piano,
     "Metal Box": room_metal_box,
     "Second Room": room_second,
-    "Red Door": room_red_door
+    "Red Door": room_red_door,
+    "Safe": room_safe
 
 }
