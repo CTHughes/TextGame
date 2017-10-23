@@ -95,13 +95,22 @@ room_keypad = {
 
     "items": []
 }
+room_second_keypad = {
+    "name": "the keypad",
+
+    "description": "A display awaiting 4 characters input, and a flashing keyboard.",
+
+    "exits": {"back": "Start"},
+
+    "items": []
+}
 room_red_door = {
     "name": "the red door",
 
     "description": """This door seems different to the rest you have encountered. It has a red colour and is smaller in all proportions,
 if you were taller, you would probably have to duck. A keypad sits next to door with buttons for the numbers zero to nine.""",
 
-    "exits": {"back": "room_second"},
+    "exits": {"back": "Second Room"},
 
     "items": []
 }
@@ -111,7 +120,7 @@ room_piano = {
     "description": """A grand Piano sits strangely in the corner of the room. It doesn't seem to fit with the dark 
 room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""",
 
-    "exits": {"back": "room_second"},
+    "exits": {"back": "Second Room"},
 
     "items": []
 }
@@ -122,28 +131,18 @@ room_metal_box = {
 You focus your attention solely on the box observering a grate covering it from your hands, and inside there seems to be a key attached to an arm band. 
 Is there a way to retrieve the key?""",
 
-    "exits": {"back": "room_second"},
-
-    "items": []
-}
-room_return_door = {
-    "name": "door back to first room",
-
-    "description": """You look back at the door from whence you came, going back doesn't sound like the most fun idea but maybe there's something 
-that you missed to help you escape this dreadful place.""",
-
-    "exits": {"back": "Start"},
+    "exits": {"back": "Second Room"},
 
     "items": []
 }
 room_second = {
     "name": "the second room",
 
-    "description": """You are in a dark vast room, the high ceiling towers at a staggering height above you. Through the dingey light you can make out 
-a grand piano in the corner, a painting on the wall and a new door across from you - it's gleaming red crimson clearly capturing your attention. Whoever
-owns this place really has a thing for coloured doors.""",
+    "description": """You are in a dark vast room, the high ceiling towers at a staggering height above you. Through the dingey light you
+can make out and piano in the corner, a painting on the wall and a new door across from you - it's
+gleaming red crimson clearly capturing your attention. Whoever owns this place really has a thing for coloured doors.""",
 
-    "exits": {"returndoor": "Return Door", "reddoor": "Red Door", "piano": "Piano", "metalbox": "Metal Box"},
+    "exits": {"greendoor": "Start", "reddoor": "Red Door", "piano": "Piano", "metalbox": "Metal Box"},
 
     "items": []
 }
@@ -156,9 +155,9 @@ rooms = {
     "Green Door": room_green_door,
     "Clock": room_clock,
     "Keypad": room_keypad,
+    "Second Keypad": room_second_keypad,
     "Piano": room_piano,
     "Metal Box": room_metal_box,
-    "Return Door": room_return_door,
     "Second Room": room_second,
     "Red Door": room_red_door
 

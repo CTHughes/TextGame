@@ -142,6 +142,10 @@ bespoke. On its surface is a single sheet of paper. There is also a post-it note
         print("As you unlock the green door with the green key, a keypad opens.")
         current_room = rooms["Keypad"]
         rooms["Start"]["exits"]["greendoor"] = "Keypad"
+    elif current_room == rooms["Keypad"] and (command == "enter" or command == "type") and article == "3748":
+        print("As you enter the code into the keypad, the door opens and step into another room.")
+        current_room = rooms["Second Room"]
+        rooms["Start"]["exits"]["greendoor"] = "Second Room"
     elif current_room == rooms["Clock"] and command == "check" and article == "time":
 
         minutes = time.clock() / 60
@@ -150,6 +154,22 @@ bespoke. On its surface is a single sheet of paper. There is also a post-it note
             minutes = int(30 - minutes)
             seconds = int(60 - seconds)
             print(("%02d" % (minutes,)) + ":" + ("%02d" % (seconds,)) + " is what can be read on the clock.")
+    
+    elif current_room == rooms["Piano"] and (command == "push" or command == "move") and article == "piano":
+        print("The piano is pushed to one side and behind it you find a water bottle.")
+        current_room["items"].append(item_bottle)
+    elif current_room == rooms["Piano"] and command == "play" and article == "cab":
+        print("The top of the piano mechanically opens to reveal a red note.")
+        current.room["items"].append(item_note)
+    elif current_room == rooms["Metal Box"] and (command == "empty" or command == "pour") and article == "box":
+        print("")
+    elif current_room == rooms["Metal Box"] and (command == "push" or command == "lift") and article == "box":
+        print("The box is too heavy to lift.")
+    elif current_room == rooms["Red Door"] and command == "use" and article + extension == "redkey":
+        inventory.remove(item_redkey)
+        print("As you unlock the red door with the red key, a keypad opens.")
+        current_room == rooms["Second Keypad"]
+        rooms["Second Room"]["exits"]["reddoor"] = "Second Keypad"       
     else:   
         return False
     return True
