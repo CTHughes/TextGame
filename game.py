@@ -53,14 +53,14 @@ def is_valid_exit(exits, chosen_exit):
 
     return chosen_exit in exits
 
-def execute_go(direction):
+def execute_go(direction, extension = ""):
     #This function, given the direction updates the current room
     #to reflect the movement of the player if the direction is a valid exit.
 
     global current_room
 
-    if is_valid_exit(current_room["exits"], direction):
-        current_room = rooms[current_room["exits"][direction]]
+    if is_valid_exit(current_room["exits"], direction + extension):
+        current_room = rooms[current_room["exits"][direction + extension]]
     else:
         print("You cannot go there.")
 
@@ -152,8 +152,10 @@ def execute_command(command):
         return
 
     if command[0] == "go":
-        if len(command) > 1:
-            execute_go(command[1])
+        if len(command) > 2:
+            execute_go(command[1], command[2])
+        elif len(command) > 1:
+        	execute_go(command[1])
         else:
             print("Go where?")
 
