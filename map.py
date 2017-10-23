@@ -23,7 +23,7 @@ room_table = {
 
     "description":
     """Out of place in the dimly lit room, the hardwood table appears up-market and 
-bespoke. On its surface is a single sheet of paper.""",
+bespoke. On its surface is a single sheet of paper. There is some sort of white smudge against the brown surface of the table.""",
 
     "exits": {"back": "Start"},
 
