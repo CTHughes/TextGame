@@ -141,6 +141,21 @@ def execute_drop(item_id):
     if item_dropped == False:
         print("You cannot drop that.")
 
+def execute_help():
+    print('Possible actions:')
+    print('-----------------------------------------')
+    print('INSPECT or EXAMINE to examine an object')
+    print('MOVE or PUSH to move certain objects')
+    print('TAKE to pick up an item')
+    print('DROP to drop an item')
+    print('GO to move')
+    print('CHECK TIME to check time.')
+    print('USE to use certain items')
+    print('WEAR to wear certain items')
+    print('PLAY to play a certain key on the piano')
+    print('EMPTY or POUR certain items')
+    print('PICK to check under certain objects')
+
 def specific_command(command, article, extension = ""):
     #This function is for running the hard-coded room commands which produce a specific result
     global current_room
@@ -172,16 +187,23 @@ bespoke. On its surface is a single sheet of paper. There is also a post-it note
             print(("%02d" % (minutes,)) + ":" + ("%02d" % (seconds,)) + " is what can be read on the clock.")
     
     elif current_room == rooms["Piano"] and (command == "push" or command == "move") and article == "piano":
-        if current_room["description"] != """A grand Piano off to one side where you pushed it. It doesn't seem to fit with the dark 
-room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""":
+        if current_room["description"] == """A grand Piano is awkwardly pressed against the wall. It doesn't seem to fit with the dark 
+room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""" or current_room["description"] == """The grand Piano has the top open, who would have known it was set up to open
+after a certain input.""":
             print("The piano is pushed to one side and behind it you find a water bottle.")
             current_room["items"].append(item_bottle)
             current_room["description"] = """A grand Piano off to one side where you pushed it. It doesn't seem to fit with the dark 
 room - how would anyone read sheet music in that light? Yet, it seems to draw you in."""
     elif current_room == rooms["Piano"] and command == "play" and article == "cab":
-        print("The top of the piano mechanically opens to reveal a red note.")
-        current.room["items"].append(item_note)
+        if current_room["description"] == """A grand Piano is awkwardly pressed against the wall. It doesn't seem to fit with the dark 
+room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""" or current_room["description"] == """A grand Piano off to one side where you pushed it. It doesn't seem to fit with the dark 
+room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""":
+            print("The top of the piano mechanically opens to reveal a red note.")
+            current_room["items"].append(item_note)
+            current_room["description"] = """The grand Piano has the top open, who would have known it was set up to open
+after a certain input."""
     elif current_room == rooms["Metal Box"] and (command == "empty" or command == "pour") and article == "box":
+        #DO THIS!!!!
         print("")
     elif current_room == rooms["Metal Box"] and (command == "push" or command == "lift") and article == "box":
         print("The box is too heavy to lift.")
@@ -235,6 +257,9 @@ def execute_command(command):
             execute_inspect(command[1])
         else:
             print("Inspect what?")
+
+    elif command[0] == "help":
+        execute_help()
 
     elif len(command) > 2:
         if specific_command(command[0], command[1], command[2]) == False:

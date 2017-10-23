@@ -57,10 +57,10 @@ item_note= {
 
 	"name": "a red note",
 
-	"description": """A strange red note writes in cursive font, "you live but your
-reflection does not - it lacks a substance you have in plenty - yet if the timer
-stops you may run out, and running itself will leave you short, prehaps you should
-give some to your reflection? """
+	"description": """A strange red note, at the top of the note are four numbers, 2187. 
+Below, written in cursive font, is "you live but your reflection does not - it lacks 
+a substance you have in plenty - yet if the timer stops you may run out, and running
+itself will leave you short, perhaps you should give some to your reflection?" """
 
 }
 item_bottle= {
@@ -74,9 +74,9 @@ item_bottle= {
 item_picture= {
   "id": "picture",
 
-  "name": "A picture of a taxi"
+  "name": "a picture of a taxi",
 
-  "decription": """""It appears to be a picure of a taxi with a piano on top. Seems like
+  "description": """It appears to be a picure of a taxi with a piano on top. Seems like
   a very precarious position for a piano"""
 }
 
