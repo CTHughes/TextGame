@@ -117,7 +117,7 @@ room_red_door = {
     "name": "the red door",
 
     "description": """This door seems different to the rest you have encountered. It has a red colour and is smaller in all proportions,
-if you were taller, you would probably have to duck. A keypad sits next to door with buttons for the numbers zero to nine.""",
+if you were taller, you would probably have to duck. There is a slot for a key.""",
 
     "exits": {"back": "Second Room"},
 
@@ -151,7 +151,7 @@ room_second = {
 staggering height above you. Through the dingey light you can make out and piano
 in the corner, a painting on the wall and a new door across from you - it's
 gleaming red crimson clearly capturing your attention. Whoever owns this
-place really has a thing for coloured doors. Yet, in the middle of the room you
+place really has a thing for coloured doors. Yet, in the centre of the room you
 observe a dark metal box, completely void of colour, but filled with a sense
 of mystery.""",
 
@@ -173,12 +173,10 @@ room_mirrors = {
 
     "description": """You are in a blindingly bright room, or at least that is how it
 feels after the previous two dark prisons. Your eyes take a few minutes to adjust
-but when they do; you are astonished by what you see: a room constructed completely
-from mirrors. Even the floor and ceiling were made of this stranegly clean reflective
-surface. You almost feel guilty for leaving your dirty foot prints on its sparkly surface
-but you resolve to escape, no matter what it takes. Perhaps you should reflect on how?""",
+but when they do; you see a large mirror hung on the back wall. You remember the clock back in 
+the first room - there can't be that much time left to escape. Perhaps you should reflect on how?""",
 
-    "exits": {"reddoor": "Second Room", "mirror": "Mirror"},
+    "exits": {"back": "Second Room", "reddoor": "Second Room", "mirror": "Mirror"},
 
     "items": [item_goldkey]
 }
