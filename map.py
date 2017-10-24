@@ -182,6 +182,6 @@ rooms = {
     "Metal Box": room_metal_box,
     "Second Room": room_second,
     "Red Door": room_red_door,
-    "Safe": room_safe
-
+    "Safe": room_safe,
+    "Mirror Room": room_mirrors
 }
