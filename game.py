@@ -423,7 +423,7 @@ room. It's time to take a look around.
     # Main game loop
 
     #When 30 minutes has elapsed, the game ends
-    while time.clock() < 10800:
+    while time.clock() < 1800:
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_inventory_items(inventory)
