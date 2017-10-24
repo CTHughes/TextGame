@@ -155,7 +155,20 @@ room_safe = {
 
     "items": []
 }
+room_mirrors = {
+    "name": "the mirror room",
 
+    "description": """You are in a blindingly bright room, or at least that is how it
+feels after the previous two dark prisons. Your eyes take a few minutes to adjust
+but when they do; you are astonished by what you see: a room constructed completely
+from mirrors. Even the floor and ceiling were made of this stranegly clean reflective
+surface. You almost feel guilty for leaving your dirty foot prints on its sparkly surface
+but you resolve to escape, no matter what it takes. Perhaps you should reflect on how?""",
+
+    "exits": {"reddoor": "Second Room"},
+
+    "items": []
+}
 rooms = {
     "Start": room_start,
     "Table": room_table,
