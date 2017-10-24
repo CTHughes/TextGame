@@ -118,7 +118,8 @@ def execute_take(item_id):
     if item_id == "painting" and current_room == rooms["Second Room"]:
         rooms["Second Room"]["description"] = """You are in a dark vast room, the high ceiling towers at a staggering height above you. Through the dingey light you
 can make out and piano in the corner, a safe revealed by taking down the painting and a new door across from you - it's
-gleaming red crimson clearly capturing your attention. Whoever owns this place really has a thing for coloured doors."""
+gleaming red crimson clearly capturing your attention. Whoever owns this place really has a thing for coloured doors.Yet, in the middle of the room you
+observe a dark metal box, completely void of colour, but filled with a sense of mystery."""
         rooms["Second Room"]["exits"].update({"safe" : "Safe"})
     if item_taken == False:
         print("You cannot take that.")
@@ -148,11 +149,12 @@ def execute_help():
     print('MOVE or PUSH to move certain objects')
     print('TAKE to pick up an item')
     print('DROP to drop an item')
-    print('GO to move')
+    print('GO to move.')
+    print('If you are inspecting an object, type \'GO back\' to go back to the main room.')
     print('CHECK TIME to check time.')
     print('USE to use certain items')
     print('WEAR to wear certain items')
-    print('PLAY to play a certain key on the piano')
+    print('PLAY to play a series of notes on the piano')
     print('EMPTY or POUR certain items')
     print('PICK to check under certain objects')
 
@@ -202,15 +204,32 @@ room - how would anyone read sheet music in that light? Yet, it seems to draw yo
             current_room["items"].append(item_note)
             current_room["description"] = """The grand Piano has the top open, who would have known it was set up to open
 after a certain input."""
-    elif current_room == rooms["Metal Box"] and (command == "empty" or command == "pour") and article == "box":
-        #DO THIS!!!!
-        print("")
+    elif current_room == rooms["Metal Box"] and (command == "empty" or command == "pour") and (article == "bottle" or article == "waterbottle" or article == "water") and extension == "box":
+        for item in inventory:
+            if item["id"] == "bottle":
+                if current_room["description"]=="""The cold, hard metal seems to solidify your helpless situation - how can you escape? 
+You focus your attention solely on the box observering a grate covering it from your hands, and inside there seems to be a key attached to an arm band. 
+Is there a way to retrieve the key?""":
+                    print("You empty a bottle into the grate, it looks to be about a third full.")
+                    current_room["description"] = "The box looks to be about 1/3 full of water. Perhaps you could fill it the whole way with more water."
+                    inventory.remove(item)
+                elif current_room["description"]=="The box looks to be about 1/3 full of water. Perhaps you could fill it the whole way with more water.":
+                    print("You empty a bottle into the grate, it looks to be about two thirds full.")
+                    current_room["description"] = "The box looks to be about 2/3 full of water. Perhaps you could fill it the whole way with more water."
+                    inventory.remove(item)
+                elif current_room["description"]=="The box looks to be about 2/3 full of water. Perhaps you could fill it the whole way with more water.":
+                    print("You empty a bottle into the grate, it looks to be full, there is a key sticking out of the grate.")
+                    current_room["description"] = "The box is full of water."
+                    inventory.remove(item)
+                    current_room["items"].append(item_redkey)
+                break
+        print("You have nothing to poor")
     elif current_room == rooms["Metal Box"] and (command == "push" or command == "lift") and article == "box":
         print("The box is too heavy to lift.")
     elif current_room == rooms["Red Door"] and command == "use" and article + extension == "redkey":
         inventory.remove(item_redkey)
         print("As you unlock the red door with the red key, a keypad opens.")
-        current_room == rooms["Second Keypad"]
+        current_room = rooms["Second Keypad"]
         rooms["Second Room"]["exits"]["reddoor"] = "Second Keypad"
     elif current_room == rooms["Safe"] and (command == "enter" or command == "type") and article == "816":
         if current_room["description"] != "The safe lies ajar and you can see inside.":
@@ -218,6 +237,59 @@ after a certain input."""
             current_room["items"].append(item_bottle)
             current_room["items"].append(item_picture)
             current_room["description"] = "The safe lies ajar and you can see inside."
+    elif current_room == rooms["Second Keypad"] and (command == "enter" or command == "type") and article == "2187":
+        print("As you enter the code into the keypad, the door opens and step into another room.")
+        current_room = rooms["Mirror Room"]
+        rooms["Second Room"]["exits"]["reddoor"] = "Mirror Room"
+    elif current_room == rooms["Mirror"] and (command == "breathe") and article == "mirror":
+        print("Your breath reveals something written on the mirror, it seems to be a password. It says: IAMGOD")
+    elif current_room == rooms["Mirror"] and (command == "look") and article == "mirror":
+        print("""@@+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+@@
+@@      ++++##++++++######+'+####'+;''+##++++++';:::;;;;;;;';'.    +@@
+@@     ++#+##++##+######+++++#####+++''++#++'+++;';;::;';;;;;:;:   +@@
+@@   .#+############+'';::++#'++;'#+;:::;+########+#+'''::,,;''+'  +@@
+@@   '+##########+';:::,::;;:'::''::,:::;#+######++++::,,.`.,+#### +@@
+@@   +##########++';:::::::::;::;:::,:::;++#####+''+',,...`..'#### +@@
+@@   ##########++';::::::::::::::,,,,,::::;;;;;;::,,,.....``.;+### +@@
+@@  ;##########+';::::,::::::::::::::::::::::,,,,,,....`````.,;### +@@
+@@  ;##########';::::::::,,,:::::::::::::::::,::,,,,,...````.,'+## +@@
+@@  +#####+++++':::::::::::::::::::::;;;;;::::;:::,....`````.,###' +@@
+@@  +##+##++++''+;;::::::;;;;;;;';;;;;;;;;::;;;;::,........`.,###` +@@
+@@  +#+'+##+'''+'''';::;''''''+++++++'';;;;:;';;;;;::,,....`..###  +@@
+@@  ++++#####++''++''++#######++++++++''';;;;'''++'''';::,....+#+  +@@
+@@  #+'+####+';;'+''++##;;;;;;;;''''+#+';;;;'+++++++''';:,,...;'.  +@@
+@@  #'+#####+';::;;''##+;;''+####++''';;'#+''++####+##++';,..;;    +@@
+@@  +'''##++';::::::;'#;;'++++##++++'';;;######+++++##++;::,'++;   +@@
+@@  +;+;;+++';:::::::;+;;';;;;;;;''';;;;'#:,:'''+'+###+++;,,+++#   +@@
+@@  ,;::;'+';;:::::::::::::::;;;;;;;::++#:,,:;+;;'';;;;,.,;;,,#+   +@@
+@@   +::''+;:;:::::::::,,::::::::::::::;:,,.`,;,::::,....,,..:,    +@@
+@@   ;+:::;;::::::::::,::::::::::::::::::,,.``.,`...,,.,,.```.'`   +@@
+@@   `##::,::::::::::::::::::::::;;;::;;:::::,..::::::,,....:      +@@
+@@   `###:::::::::::::::::::::::;;;;;'+#+;;;;:;:;;::::,,...,:      +@@
+@@   `###+;;:::::::::::::::::::;;:::::;;;''';;,,:;;:::,,,.,,,      +@@
+@@    `##+:::::::::::::::::::;;:::::;;;;;';;:,..,,;;;:,,,,:,       +@@
+@@    :###;::::::::::::::::;;;:::::;:;:;;;;;:,....,;;:,,,,:        +@@
+@@        ;:::::::::::::::::::::;::::::;:,.,..,,,,.,:;:,,:.        +@@
+@@        ,;::::::::::::::::::;;;;;;''''';;'';,:::,.;;:,,:         +@@
+@@          ;;;;;;;:::;;;;:::;;;:::;;;;;;;:::;''''':::,,:          +@@
+@@           ;;;;;;;;;;;;;;;;;:::::;;;'''''';::,:;;;:,:`           +@@
+@@            ';;;;'';;;;;;;:::::::::;;''';;::,,,::::;             +@@
+@@            ;;;;;;''';;;;;::::::::::;;;;:,.,.,,,:;;              +@@
+@@            ,';;;;;'''';;;;:::::::::::;:,,.....,:;               +@@
+@@             +;;;;;'''''';;;::::::::::;::,,...,:;                +@@
+@@             `';;;';''''''';;:;;;;;;;;;;::,,,,:'                 +@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@""")
+
+    elif current_room == rooms["Gold Door"] and command == "use" and article+extension == "goldkey":
+         inventory.remove(item_goldkey)
+         print("As you unlock the gold door with the gold key, a keypad opens.")
+         current_room = rooms["Third Keypad"]
+         rooms["Second Room"]["exits"]["golddoor"] = "Third Keypad"
+    elif current_room == rooms["Third Keypad"] and (command == "enter" or command == "type") and article == "iamgod":
+        print("As you enter the code into the keypad, the door opens... You can smell the fresh air, you step through the door and... and...")
+        print("Game over?")
+        input()
+        exit()
     else:   
         return False
     return True
@@ -334,7 +406,7 @@ room. It's time to take a look around.
     # Main game loop
 
     #When 30 minutes has elapsed, the game ends
-    while time.clock() < 108000:
+    while time.clock() < 10800:
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_inventory_items(inventory)
@@ -344,6 +416,7 @@ room. It's time to take a look around.
 
         # Execute the player's command
         execute_command(command)
+    print("You ran out of time!")   
     print("Game Over")
 # Are we being run as a script? If so, run main().
 # '__main__' is the name of the scope in which top-level code executes.
