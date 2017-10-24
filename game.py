@@ -26,9 +26,11 @@ def print_room_items(room):
 def print_inventory_items(items):
     #This function takes a list of inventory items and displays it nicely, in a
     #manner similar to print_room_items().
-
+    import textwrap
     if items:
-        print("You have " + list_of_items(items) + ".")
+        item_string = "You have " + list_of_items(items) + "."
+        dedented_text = textwrap.dedent(item_string).strip()
+        print(textwrap.fill(dedented_text, 70))
         print()
 
 def print_room(room):
@@ -70,7 +72,8 @@ def execute_go(direction, extension = ""):
 
 def execute_inspect(article, extension = ""):
     #This function allows a part of the environment to be examined
-    
+    import textwrap
+
     global inventory
     global current_room
     global glasses_taken
@@ -80,14 +83,14 @@ def execute_inspect(article, extension = ""):
         current_room = rooms[current_room["exits"][article + extension]]
         article_inspected = True
     else:
-        for item in current_room["items"]:
-            if item["id"] == article:
-                print(item["description"])
-                article_inspected = True
         for item in inventory:
             if item["id"] == article:
-                print(item["description"])
-                article_inspected = True
+                if item["id"] == "paper":
+                    print(item["description"])
+                else:
+                    dedented_text = textwrap.dedent(item["description"]).strip()
+                    print(textwrap.fill(dedented_text, 70))
+                    article_inspected = True
 
     if glasses_taken == True and article == "pocket":
         print("Your pockets are empty.")
@@ -118,11 +121,11 @@ def execute_take(item_id):
                 item_taken = True
 
     if item_id == "painting" and current_room == rooms["Second Room"]:
-        rooms["Second Room"]["description"] = """You are in a dark vast room, the high ceiling towers at a staggering height above you. Through the dingey light you
-can make out and piano in the corner, a safe revealed by taking down the painting and a new door across from you - it's
+        rooms["Second Room"]["description"] = """You are in a dark vast room, the high ceiling towers at a staggering height above you. There is a piano, a safe revealed by taking down the painting and a red door across from you - it's
 gleaming red crimson clearly capturing your attention. Whoever owns this place really has a thing for coloured doors.Yet, in the middle of the room you
 observe a dark metal box, completely void of colour, but filled with a sense of mystery."""
         rooms["Second Room"]["exits"].update({"safe" : "Safe"})
+        print("Taking down the painting of a safe has revealed an actual safe behind it.")
     if item_taken == False:
         print("You cannot take that.")
     
@@ -194,41 +197,44 @@ bespoke. On its surface is a single sheet of paper. There is also a post-it note
     
     elif current_room == rooms["Piano"] and (command == "push" or command == "move") and article == "piano":
         if current_room["description"] == """A grand Piano is awkwardly pressed against the wall. It doesn't seem to fit with the dark 
-room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""" or current_room["description"] == """The grand Piano has the top open, who would have known it was set up to open
-after a certain input.""":
+room - how would anyone read sheet music in that light? Maybe you could move it into the light and play something.""":
             print("The piano is pushed to one side and behind it you find a water bottle.")
             current_room["items"].append(item_bottle)
-            current_room["description"] = """A grand Piano off to one side where you pushed it. It doesn't seem to fit with the dark 
-room - how would anyone read sheet music in that light? Yet, it seems to draw you in."""
+            current_room["description"] = """A grand Piano is now in the light. Maybe you could play something."""
     elif current_room == rooms["Piano"] and command == "play" and article == "cab":
-        if current_room["description"] == """A grand Piano is awkwardly pressed against the wall. It doesn't seem to fit with the dark 
-room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""" or current_room["description"] == """A grand Piano off to one side where you pushed it. It doesn't seem to fit with the dark 
-room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""":
+        if current_room["description"] == current_room["description"] == """A grand Piano is now in the light. Maybe you could play something.""":
             print("The top of the piano mechanically opens to reveal a red note.")
             current_room["items"].append(item_note)
-            current_room["description"] = """The grand Piano has the top open, who would have known it was set up to open
-after a certain input."""
-    elif current_room == rooms["Metal Box"] and (command == "empty" or command == "pour") and (article == "bottle" or article == "waterbottle" or article == "water") and extension == "box":
-        for item in inventory:
-            if item["id"] == "bottle":
-                if current_room["description"]=="""The cold, hard metal seems to solidify your helpless situation - how can you escape? 
-You focus your attention solely on the box observering a grate covering it from your hands, and inside there seems to be a key attached to an arm band. 
+            current_room["description"] = """The grand Piano has the top open. Who would have known it was mechanical?"""
+    elif current_room == rooms["Metal Box"] and (command == "empty" or command == "pour"):
+        if (article == "bottle" or article == "waterbottle" or article == "water"):
+            if extension == "box":
+                for item in inventory:
+                    if item["id"] == "bottle":
+                        if current_room["description"]=="""The cold, hard metal seems to solidify your helpless situation - how can you escape? 
+You focus your attention solely on the box observering a grate covering it from your hands, and inside there seems to be a key attached to a floatation device. 
 Is there a way to retrieve the key?""":
-                    print("You empty a bottle into the grate, it looks to be about a third full.")
-                    current_room["description"] = "The box looks to be about 1/3 full of water. Perhaps you could fill it the whole way with more water."
-                    inventory.remove(item)
-                elif current_room["description"]=="The box looks to be about 1/3 full of water. Perhaps you could fill it the whole way with more water.":
-                    print("You empty a bottle into the grate, it looks to be about two thirds full.")
-                    current_room["description"] = "The box looks to be about 2/3 full of water. Perhaps you could fill it the whole way with more water."
-                    inventory.remove(item)
-                elif current_room["description"]=="The box looks to be about 2/3 full of water. Perhaps you could fill it the whole way with more water.":
-                    print("You empty a bottle into the grate, it looks to be full, there is a key sticking out of the grate.")
-                    current_room["description"] = "The box is full of water."
-                    inventory.remove(item)
-                    current_room["items"].append(item_redkey)
-                break
-        print("You have nothing to poor")
-    elif current_room == rooms["Metal Box"] and (command == "push" or command == "lift") and article == "box":
+                            print("You empty a bottle into the grate, it looks to be about a third full.")
+                            current_room["description"] = "The box looks to be about 1/3 full of water. Perhaps you could fill it the whole way with more water."
+                            inventory.remove(item)
+                        elif current_room["description"]=="The box looks to be about 1/3 full of water. Perhaps you could fill it the whole way with more water.":
+                            print("You empty a bottle into the grate, it looks to be about two thirds full.")
+                            current_room["description"] = "The box looks to be about 2/3 full of water. Perhaps you could fill it the whole way with more water."
+                            inventory.remove(item)
+                        elif current_room["description"]=="The box looks to be about 2/3 full of water. Perhaps you could fill it the whole way with more water.":
+                            print("You empty a bottle into the grate, it looks to be full, there is a key sticking out of the grate.")
+                            current_room["description"] = "The box is full of water."
+                            inventory.remove(item)
+                            current_room["items"].append(item_redkey)
+                        break
+                print("You have nothing to pour")
+            else:
+                print("You must pour it into something.")
+        else:
+            print("You cannot pour that.")
+
+        
+    elif current_room == rooms["Metal Box"] and (command == "push" or command == "lift" or command == "pick") and article == "box":
         print("The box is too heavy to lift.")
     elif current_room == rooms["Red Door"] and command == "use" and article + extension == "redkey":
         inventory.remove(item_redkey)

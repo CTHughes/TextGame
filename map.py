@@ -23,7 +23,7 @@ room_table = {
 
     "description":
     """Out of place in the dimly lit room, the hardwood table appears up-market and 
-bespoke. On its surface is a single sheet of paper. There is some sort of white smudge against the brown surface of the table.""",
+bespoke. There is some sort of white smudge against the brown surface of the table. Maybe if you could see better you would know what it was.""",
 
     "exits": {"back": "Start"},
 
@@ -89,7 +89,7 @@ only mean impending doom.""",
 room_keypad = {
     "name": "the keypad",
 
-    "description": "A display awaiting 4 characters input, and a flashing keyboard.",
+    "description": "A display awaiting a 4 digit input, and a flashing keyboard.",
 
     "exits": {"back": "Start"},
 
@@ -98,7 +98,7 @@ room_keypad = {
 room_second_keypad = {
     "name": "the keypad",
 
-    "description": "A display awaiting 4 characters input, and a flashing keyboard.",
+    "description": "A display awaiting a 4 digit input, and a flashing keyboard.",
 
     "exits": {"back": "Second Room"},
 
@@ -127,7 +127,7 @@ room_piano = {
     "name": "the piano",
 
     "description": """A grand Piano is awkwardly pressed against the wall. It doesn't seem to fit with the dark 
-room - how would anyone read sheet music in that light? Yet, it seems to draw you in.""",
+room - how would anyone read sheet music in that light? Maybe you could move it into the light and play something.""",
 
     "exits": {"back": "Second Room"},
 
@@ -137,7 +137,7 @@ room_metal_box = {
     "name": "a metal box",
 
     "description": """The cold, hard metal seems to solidify your helpless situation - how can you escape? 
-You focus your attention solely on the box observering a grate covering it from your hands, and inside there seems to be a key attached to an arm band. 
+You focus your attention solely on the box observering a grate covering it from your hands, and inside there seems to be a key attached to a floatation device. 
 Is there a way to retrieve the key?""",
 
     "exits": {"back": "Second Room"},
@@ -148,14 +148,13 @@ room_second = {
     "name": "the second room",
 
     "description": """You are in a dark vast room, the high ceiling towers at a
-staggering height above you. Through the dingey light you can make out and piano
-in the corner, a painting on the wall and a new door across from you - it's
+staggering height above you. There is a piano, a painting on the wall and a red door across from you - it's
 gleaming red crimson clearly capturing your attention. Whoever owns this
 place really has a thing for coloured doors. Yet, in the centre of the room you
 observe a dark metal box, completely void of colour, but filled with a sense
 of mystery.""",
 
-    "exits": {"greendoor": "Start", "reddoor": "Red Door", "piano": "Piano", "box": "Metal Box"},
+    "exits": {"back": "Start", "greendoor": "Start", "reddoor": "Red Door", "piano": "Piano", "box": "Metal Box"},
 
     "items": [item_bottle, item_painting]
 }
