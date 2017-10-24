@@ -34,13 +34,15 @@ def print_inventory_items(items):
 def print_room(room):
     #This function takes a room as an input and nicely displays its name
     #and description.
+    import textwrap
 
     # Display room name
     print()
     print(room["name"].upper())
     print()
     # Display room description
-    print(room["description"])
+    dedented_text = textwrap.dedent(room["description"]).strip()
+    print(textwrap.fill(dedented_text, 70))
     print()
     print_room_items(room)
 
@@ -168,8 +170,10 @@ def specific_command(command, article, extension = ""):
         rooms["Table"]["description"] = """Out of place in the dimly lit room, the hardwood table appears up-market and 
 bespoke. On its surface is a single sheet of paper. There is also a post-it note with the numbers 3748."""
     elif current_room == rooms["Chair"] and command == "pick" and article == "chair":
-        print("When you pick up the chair a green key clatters to the floor.")
-        current_room["items"].append(item_greenkey)
+        if current_room["description"] != "The chair lies on the floor where you left it.":
+            print("When you pick up the chair a green key clatters to the floor.")
+            current_room["items"].append(item_greenkey)
+            current_room["description"] = "The chair lies on the floor where you left it."
     elif current_room == rooms["Green Door"] and command == "use" and article + extension == "greenkey":
         inventory.remove(item_greenkey)
         print("As you unlock the green door with the green key, a keypad opens.")
