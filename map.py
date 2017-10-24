@@ -4,12 +4,12 @@ room_start = {
     "name": "dimly lit room",
 
     "description":
-    """You are in the dank and dimly lit room where you first awoke. The only light
+    """You are in a dank and dimly lit room where you can still make out a
+patch of drool on a chair from when you were sleeping. The only light
 is cast from a daunting red display on the wall. The room contains two doors 
 along  with a table and the chair you slept on. One of the doors is green 
-and the other is gold. Entering back into this room makes you shiver. You 
-take another look at the display with its red lights gleaming at you 
-worsening the atmosphere.
+and the other is gold.  You take another look at the display with its red
+lights gleaming at you worsening the atmosphere.
 
 You need to escape. Fast.""",
 
@@ -100,7 +100,7 @@ room_second_keypad = {
 
     "description": "A display awaiting 4 characters input, and a flashing keyboard.",
 
-    "exits": {"back": "Start"},
+    "exits": {"back": "Second Room"},
 
     "items": []
 }
@@ -138,9 +138,13 @@ Is there a way to retrieve the key?""",
 room_second = {
     "name": "the second room",
 
-    "description": """You are in a dark vast room, the high ceiling towers at a staggering height above you. Through the dingey light you
-can make out and piano in the corner, a painting on the wall and a new door across from you - it's
-gleaming red crimson clearly capturing your attention. Whoever owns this place really has a thing for coloured doors.""",
+    "description": """You are in a dark vast room, the high ceiling towers at a
+staggering height above you. Through the dingey light you can make out and piano
+in the corner, a painting on the wall and a new door across from you - it's
+gleaming red crimson clearly capturing your attention. Whoever owns this
+place really has a thing for coloured doors. Yet, in the middle of the room you
+observe a dark metal box, completely void of colour, but filled with a sense
+of mystery.""",
 
     "exits": {"greendoor": "Start", "reddoor": "Red Door", "piano": "Piano", "metalbox": "Metal Box"},
 

@@ -71,6 +71,13 @@ item_bottle= {
   "description": "A bottle, filled with water."
 
 }
+item_redkey = {
+  "id": "red",
+
+  "name": "a red key",
+
+  "description": """A damp red key, you think you know what this does."""
+}
 item_picture= {
   "id": "picture",
 
