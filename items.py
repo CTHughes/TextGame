@@ -86,4 +86,12 @@ item_picture= {
   "description": """It appears to be a picure of a taxi with a piano on top. Seems like
   a very precarious position for a piano"""
 }
+item_goldkey = {
+  "id": "gold",
+
+  "name": "a golden ornate key",
+
+  "description": """This key gleams in the light and shines with hope of an exit"""
+}
+
 

@@ -104,6 +104,15 @@ room_second_keypad = {
 
     "items": []
 }
+room_third_keypad = {
+    "name": "the keypad",
+
+    "description": "A display awaiting 4 characters input, and a flashing keyboard.",
+
+    "exits": {"back": "Start"},
+
+    "items": []
+}
 room_red_door = {
     "name": "the red door",
 
@@ -171,7 +180,7 @@ but you resolve to escape, no matter what it takes. Perhaps you should reflect o
 
     "exits": {"reddoor": "Second Room"},
 
-    "items": []
+    "items": [item_goldkey]
 }
 room_mirror = {
     "name": "the mirror",
@@ -280,7 +289,11 @@ realisation dawns over you. You are Kirill Sidorov:
 @@                               ;'''';;;`                         +@@
 @@                                +++++';                          +@@
 @@                                                                  @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"""
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@""",
+
+    "exits": {"back": "Mirror Room"},
+
+    "items": []
 }
 rooms = {
     "Start": room_start,
@@ -291,11 +304,12 @@ rooms = {
     "Clock": room_clock,
     "Keypad": room_keypad,
     "Second Keypad": room_second_keypad,
+    "Third Keypad": room_third_keypad,
     "Piano": room_piano,
     "Metal Box": room_metal_box,
     "Second Room": room_second,
     "Red Door": room_red_door,
     "Safe": room_safe,
-    "Mirror Room": room_mirrors
+    "Mirror Room": room_mirrors,
     "Mirror": room_mirror
 }
